@@ -1,0 +1,31 @@
+﻿@model Book
+
+<h1>Оформление заказа</h1>
+<div>
+    <img src="@Model.ImageUrl" alt="@Model.Title" width="100" />
+    <h2>@Model.Title</h2>
+    <p>@Model.Description</p>
+    <p>Цена: @Model.Price</p>
+</div>
+<form id="orderForm">
+    <label>ФИО: <input type="text" name="name" required /></label><br>
+    <label>Номер телефона: <input type="tel" name="phone" required /></label><br>
+    <label>Город: <input type="text" name="city" required /></label><br>
+    <label>Отделение новой почты: <input type="text" name="postOffice" required /></label><br>
+    <button type="submit">Отправить</button>
+</form>
+
+<script>
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch(`/Books/Order/${@Model.Id}`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.body.innerHTML = html;
+        });
+    });
+</script>

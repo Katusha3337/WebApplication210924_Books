@@ -1,0 +1,19 @@
+﻿@model List<Book>
+
+<h1>Список книг</h1>
+@foreach (var book in Model)
+{
+    <div>
+        <img src="@book.ImageUrl" alt="@book.Title" width="100" />
+        <h2>@book.Title</h2>
+        <p>@book.Description</p>
+        <p>Цена: @book.Price</p>
+        <button onclick="buyBook(@book.Id)">Купить</button>
+    </div>
+}
+
+<script>
+    function buyBook(bookId) {
+        window.location.href = `/Books/Order/${bookId}`;
+    }
+</script>
